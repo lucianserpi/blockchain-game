@@ -18,11 +18,11 @@ Quick Start
 
 Usage
 -----
-- after starting te project: `npm start` open http://localhost:3000 in browser
+- after starting the project: `npm start` open http://localhost:3000 in browser
 
-- add Gnache network values to MetaMask
+- add Gnache network data: RPC SERVER URL, NETWORK ID to MetaMask
 
-- import account into MetaMask using PRIVATE KEY from an address
+- import new account into MetaMask using PRIVATE KEY from an address table
 
 ![CaptureWeb](https://user-images.githubusercontent.com/17765841/209145834-5f00f495-670f-4189-a23d-2d6f9126fe67.PNG)
 
