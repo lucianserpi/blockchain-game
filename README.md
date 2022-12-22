@@ -8,7 +8,7 @@ Installation
 
 - Download and install Ganache personal Ethereum blockchain from [Truffle Suite](https://trufflesuite.com/ganache/).
 
-- Install extension on your broser [MetaMask](https://metamask.io/)
+- Install crypto wallet extension on your broser [MetaMask](https://metamask.io/)
 
 Quick Start
 -----------
