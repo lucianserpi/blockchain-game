@@ -1,4 +1,4 @@
-# blockchain_game
+# Blockchain ETH game
 An example project that uses React to connect with Ethereum blockchain
 and generate ERC-721 NFTs
 
@@ -25,3 +25,7 @@ Usage
 - import account into MetaMask using PRIVATE KEY from an address
 
 ![CaptureWeb](https://user-images.githubusercontent.com/17765841/209145834-5f00f495-670f-4189-a23d-2d6f9126fe67.PNG)
+
+Credits
+-------
+This Repo exists thanks to [gregory@dappuniversity.com](https://github.com/dappuniversity/blockchain_game)
