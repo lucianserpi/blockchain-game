@@ -57,23 +57,14 @@ const CARD_ARRAY = [
 
 class App extends Component {
 
-  async componentWillMount() {
+  async componentDidMount() {
     await this.loadWeb3()
     await this.loadBlockchainData()
-    this.setState({ cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random()) })
+    await this.loadCardArray()
   }
 
-  async loadWeb3() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum)
-      await window.ethereum.enable()
-    }
-    else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider)
-    }
-    else {
-      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
-    }
+  async loadCardArray() {
+    this.setState({ cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random()) })
   }
 
   async loadBlockchainData() {
@@ -84,13 +75,17 @@ class App extends Component {
     // Load smart contract
     const networkId = await web3.eth.net.getId()
     const networkData = MemoryToken.networks[networkId]
+
     if(networkData) {
       const abi = MemoryToken.abi
       const address = networkData.address
       const token = new web3.eth.Contract(abi, address)
+
       this.setState({ token })
+
       const totalSupply = await token.methods.totalSupply().call()
       this.setState({ totalSupply })
+
       // Load Tokens
       let balanceOf = await token.methods.balanceOf(accounts[0]).call()
       for (let i = 0; i < balanceOf; i++) {
@@ -101,7 +96,21 @@ class App extends Component {
         })
       }
     } else {
-      alert('Smart contract not deployed to detected network.')
+      window.alert('Smart contract not deployed to detected network!')
+    }
+  }
+  
+  async loadWeb3() {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum)
+      // Request account access
+      await window.ethereum.request({method: 'eth_requestAccounts'})
+    }
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider)
+    }
+    else {
+      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
     }
   }
 
@@ -130,12 +139,11 @@ class App extends Component {
     }
   }
 
-
   checkForMatch = async () => {
     const optionOneId = this.state.cardsChosenId[0]
     const optionTwoId = this.state.cardsChosenId[1]
 
-    if(optionOneId == optionTwoId) {
+    if(optionOneId === optionTwoId) {
       alert('You have clicked the same image!')
     } else if (this.state.cardsChosen[0] === this.state.cardsChosen[1]) {
       alert('You found a match')
@@ -182,30 +190,30 @@ class App extends Component {
         <nav className="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
           <a
             className="navbar-brand col-sm-3 col-md-2 mr-0"
-            href="http://www.dappuniversity.com/bootcamp"
-            target="_blank"
+            href="/"
             rel="noopener noreferrer"
           >
           <img src={brain} width="30" height="30" className="d-inline-block align-top" alt="" />
-          &nbsp; Memory Tokens
+          &nbsp; Memory NFTokens
           </a>
           <ul className="navbar-nav px-3">
-            <li className="nav-item text-nowrap d-none d-sm-none d-sm-block">
+            <li className="nav-item">
               <small className="text-muted"><span id="account">{this.state.account}</span></small>
             </li>
           </ul>
         </nav>
         <div className="container-fluid mt-5">
           <div className="row">
-            <main role="main" className="col-lg-12 d-flex text-center">
+            <main role="main" className="col-lg-12 d-flex justify-content-center">
               <div className="content mr-auto ml-auto">
                 <h1 className="d-4">Start matching now!</h1>
 
                 <div className="grid mb-4" >
 
-                  { this.state.cardArray.map((card, key) => {
+                { this.state.cardArray.map((card, key) => {
                     return(
                       <img
+                        alt={card.name}
                         key={key}
                         src={this.chooseImage(key)}
                         data-id={key}
@@ -219,18 +227,18 @@ class App extends Component {
                     )
                   })}
 
-
                 </div>
 
                 <div>
 
-                  <h5>Tokens Collected:<span id="result">&nbsp;{this.state.tokenURIs.length}</span></h5>
+                  <h5>Tokens Collected:<span id="result"> {this.state.tokenURIs.length}</span></h5>
 
                   <div className="grid mb-4" >
 
                     { this.state.tokenURIs.map((tokenURI, key) => {
                       return(
                         <img
+                          alt=''
                           key={key}
                           src={tokenURI}
                         />

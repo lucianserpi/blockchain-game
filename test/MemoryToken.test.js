@@ -1,33 +1,35 @@
+const { assert } = require('chai')
+
 const MemoryToken = artifacts.require('./MemoryToken.sol')
 
 require('chai')
   .use(require('chai-as-promised'))
   .should()
 
-contract('Memory Token', (accounts) => {
+contract('Memory Non Fondable Token', (accounts) => {
   let token
 
-  before(async () => {
+  before(async() => {
     token = await MemoryToken.deployed()
   })
 
-  describe('deployment', async () => {
-    it('deploys successfully', async () => {
+  describe('deployment', async() => {
+    it('deploys succesfully', async() => {
       const address = token.address
-      assert.notEqual(address, 0x0)
-      assert.notEqual(address, '')
       assert.notEqual(address, null)
       assert.notEqual(address, undefined)
+      assert.notEqual(address, '')
+      assert.notEqual(address, 0x0)
     })
 
-    it('has a name', async () => {
+    it('has a name', async() => {
       const name = await token.name()
-      assert.equal(name, 'Memory Token')
+      assert.equal(name, 'Memory Non Fondable Token')
     })
 
-    it('has a symbol', async () => {
-      const symbol = await token.symbol()
-      assert.equal(symbol, 'MEMORY')
+    it('has a symbol', async() => {
+      const name = await token.symbol()
+      assert.equal(name, 'MNFT')
     })
   })
 
@@ -62,8 +64,7 @@ contract('Memory Token', (accounts) => {
 
       // Token URI Correct
       let tokenURI = await token.tokenURI('1')
-      assert.equal(tokenURI, 'https://www.token-uri.com/nft')
+      assert.equal(tokenURI, 'https://www.some-token-uri.com/nft')
     })
   })
-
 })
