@@ -1,6 +1,6 @@
 # Blockchain ETH game
 An example project that uses React to connect with Ethereum blockchain
-and generate [ERC-721](https://erc721.org/) NFTs after winning a memory game
+and generate [ERC-721](https://erc721.org/) NFTs after winning a memory cards game
 
 Installation
 ------------
